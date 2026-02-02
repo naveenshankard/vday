@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine? 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -21,6 +22,230 @@
             overflow: hidden;
         }
 
+        /* Landing Page - Treasure Chest */
+        .landing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .landing:hover {
+            transform: scale(1.05);
+        }
+
+        .landing.hidden {
+            display: none;
+        }
+
+        /* CSS Treasure Chest */
+        .treasure-chest {
+            position: relative;
+            width: 600px;
+            height: 480px;
+            animation: wiggle 2s ease-in-out infinite;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.4));
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        /* Chest Lid */
+        .chest-lid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 210px;
+            background: linear-gradient(180deg, #8B4513 0%, #6b3410 50%, #5c2d0e 100%);
+            border-radius: 50% 50% 0 0;
+            border: 12px solid #3d1f0d;
+            border-bottom: none;
+            transform-origin: bottom;
+            transition: transform 0.5s ease-out;
+            z-index: 2;
+        }
+
+        /* Lid wood grain lines */
+        .chest-lid::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 10%;
+            width: 80%;
+            height: 9px;
+            background: #3d1f0d;
+            border-radius: 6px;
+            box-shadow: 0 36px 0 #3d1f0d, 0 72px 0 #3d1f0d;
+        }
+
+        /* Lid metal band */
+        .chest-lid::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(180deg, #d4af37 0%, #b8960c 50%, #8b7209 100%);
+            border-top: 6px solid #e6c847;
+            border-bottom: 6px solid #6b5607;
+        }
+
+        /* Chest Body */
+        .chest-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 600px;
+            height: 270px;
+            background: linear-gradient(180deg, #8B4513 0%, #723a10 50%, #5c2d0e 100%);
+            border: 12px solid #3d1f0d;
+            border-top: none;
+            border-radius: 0 0 30px 30px;
+        }
+
+        /* Body wood grain */
+        .chest-body::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            width: 80%;
+            height: 9px;
+            background: #3d1f0d;
+            border-radius: 6px;
+            box-shadow: 0 45px 0 #3d1f0d, 0 90px 0 #3d1f0d, 0 135px 0 #3d1f0d;
+        }
+
+        /* Gold lock */
+        .chest-lock {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 150px;
+            background: linear-gradient(180deg, #ffd700 0%, #d4af37 50%, #b8960c 100%);
+            border-radius: 15px;
+            border: 9px solid #8b7209;
+            z-index: 3;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Lock keyhole */
+        .chest-lock::before {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 36px;
+            background: #3d1f0d;
+            border-radius: 50%;
+        }
+
+        .chest-lock::after {
+            content: '';
+            position: absolute;
+            top: 66px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 45px;
+            background: #3d1f0d;
+            border-radius: 0 0 9px 9px;
+        }
+
+        /* Corner rivets */
+        .chest-rivet {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8960c);
+            border-radius: 50%;
+            border: 6px solid #8b7209;
+            z-index: 4;
+        }
+
+        .rivet-1 { top: 165px; left: 30px; }
+        .rivet-2 { top: 165px; right: 30px; }
+        .rivet-3 { bottom: 45px; left: 30px; }
+        .rivet-4 { bottom: 45px; right: 30px; }
+
+        /* Lid open animation */
+        .landing:hover .chest-lid {
+            transform: rotateX(-30deg);
+        }
+
+        .chest-open .chest-lid {
+            transform: rotateX(-110deg);
+        }
+
+        .deliver-tag {
+            background: #8B4513;
+            color: #f4e4bc;
+            font-family: 'Pirata One', cursive;
+            font-size: 2.5rem;
+            padding: 15px 40px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 4px solid #5c3317;
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.3),
+                inset 0 2px 5px rgba(255,255,255,0.2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .deliver-tag::before {
+            content: '⚓';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .deliver-tag::after {
+            content: '⚓';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .click-hint {
+            margin-top: 20px;
+            color: #8B4513;
+            font-family: 'Pirata One', cursive;
+            font-size: 1.3rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Chest opening animation */
+        .chest-open {
+            animation: openChest 0.8s ease-out forwards;
+        }
+
+        @keyframes openChest {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.2) rotate(10deg); }
+            60% { transform: scale(1.3) rotate(-5deg); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
         /* Pixel Hearts Container */
         .hearts-container {
             position: fixed;
@@ -32,71 +257,20 @@
             z-index: 0;
         }
 
-        /* Pixel Heart Style */
-        .pixel-heart {
+        /* Floating Heart Style */
+        .floating-heart {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #ff1493;
-            transform: rotate(45deg);
-            image-rendering: pixelated;
             animation: float linear infinite;
-        }
-
-        .pixel-heart::before,
-        .pixel-heart::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #ff1493;
-            border-radius: 50%;
-        }
-
-        .pixel-heart::before {
-            top: -15px;
-            left: 0;
-        }
-
-        .pixel-heart::after {
-            top: 0;
-            left: -15px;
-        }
-
-        /* Pixel style overlay for hearts */
-        .pixel-heart.pixelated {
-            clip-path: polygon(
-                50% 0%,
-                61% 10%,
-                70% 5%,
-                80% 10%,
-                90% 25%,
-                95% 40%,
-                90% 55%,
-                75% 75%,
-                50% 100%,
-                25% 75%,
-                10% 55%,
-                5% 40%,
-                10% 25%,
-                20% 10%,
-                30% 5%,
-                39% 10%
-            );
-            background:
-                linear-gradient(90deg, transparent 50%, rgba(0,0,0,0.1) 50%),
-                linear-gradient(0deg, transparent 50%, rgba(0,0,0,0.1) 50%),
-                #ff1493;
-            background-size: 4px 4px, 4px 4px, 100% 100%;
+            user-select: none;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh) rotate(45deg);
+                transform: translateY(100vh);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100px) rotate(45deg);
+                transform: translateY(-100px);
                 opacity: 0.8;
             }
         }
@@ -110,6 +284,23 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             z-index: 10;
             position: relative;
+            display: none;
+            animation: cardAppear 0.6s ease-out;
+        }
+
+        .card.visible {
+            display: block;
+        }
+
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .card h1 {
@@ -153,10 +344,22 @@
         .no-btn {
             background-color: #dda0dd;
             color: #333;
-            position: fixed;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: none;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .no-btn.runaway {
+            position: fixed;
             z-index: 20;
+        }
+
+        .no-placeholder {
+            width: 0;
+            padding: 0;
+            visibility: hidden;
+            display: none;
         }
 
         /* Success Message */
@@ -200,11 +403,27 @@
 <body>
     <div class="hearts-container" id="hearts-container"></div>
 
-    <div class="card">
-        <h1 id="question">Will you be my date<br>for Valentine's Day?</h1>
+    <!-- Landing Page - Treasure Chest -->
+    <div class="landing" id="landing" onclick="openChest()">
+        <div class="treasure-chest" id="chest">
+            <div class="chest-lid"></div>
+            <div class="chest-body"></div>
+            <div class="chest-lock"></div>
+            <div class="chest-rivet rivet-1"></div>
+            <div class="chest-rivet rivet-2"></div>
+            <div class="chest-rivet rivet-3"></div>
+            <div class="chest-rivet rivet-4"></div>
+        </div>
+        <div class="deliver-tag">Deliver to Catherine</div>
+        <div class="click-hint">~ Click to open ~</div>
+    </div>
+
+    <div class="card" id="card">
+        <h1 id="question">Catherine, will you be<br>my date for Valentine's Day?</h1>
 
         <div class="buttons" id="buttons">
             <button class="yes-btn" onclick="sayYes()">Yes 💕</button>
+            <span class="no-placeholder" id="no-placeholder"></span>
             <button class="no-btn" id="no-btn">No</button>
         </div>
 
@@ -215,11 +434,30 @@
     </div>
 
     <script>
-        // Create floating pixel hearts
+        // Open treasure chest and reveal card
+        function openChest() {
+            const landing = document.getElementById('landing');
+            const card = document.getElementById('card');
+
+            // Animate chest opening
+            landing.classList.add('chest-open');
+
+            // Show card after animation
+            setTimeout(() => {
+                landing.classList.add('hidden');
+                card.classList.add('visible');
+            }, 800);
+        }
+
+        // Create floating heart emoji
         function createHeart() {
             const container = document.getElementById('hearts-container');
             const heart = document.createElement('div');
-            heart.classList.add('pixel-heart', 'pixelated');
+            heart.classList.add('floating-heart');
+
+            // Random heart emoji
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
 
             // Random position and properties
             heart.style.left = Math.random() * 100 + 'vw';
@@ -227,17 +465,8 @@
             heart.style.opacity = Math.random() * 0.5 + 0.5;
 
             // Random size
-            const size = Math.random() * 20 + 15;
-            heart.style.width = size + 'px';
-            heart.style.height = size + 'px';
-
-            // Adjust pseudo-elements size
-            heart.style.setProperty('--size', size + 'px');
-
-            // Random shade of pink/red
-            const colors = ['#ff1493', '#ff69b4', '#ff6b81', '#ee5a70', '#ff4d6d'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            heart.style.backgroundColor = color;
+            const size = Math.random() * 20 + 20;
+            heart.style.fontSize = size + 'px';
 
             container.appendChild(heart);
 
@@ -257,22 +486,38 @@
 
         // No button run away logic
         const noBtn = document.getElementById('no-btn');
-
-        // Initialize no button position after page loads
+        const placeholder = document.getElementById('no-placeholder');
         let btnPos = { x: 0, y: 0 };
+        let hasRunAway = false;
 
-        function initNoButton() {
-            const btnRect = noBtn.getBoundingClientRect();
-            btnPos.x = btnRect.left;
-            btnPos.y = btnRect.top;
-            noBtn.style.left = btnPos.x + 'px';
-            noBtn.style.top = btnPos.y + 'px';
-        }
+        // No button click messages (cycles infinitely)
+        const noMessages = [
+            "Are you sure?",
+            "Really? :(",
+            "Dang it"
+        ];
+        let noClickCount = 0;
 
-        // Initialize on load
-        window.addEventListener('load', initNoButton);
-        // Also try immediately in case load already fired
-        setTimeout(initNoButton, 100);
+        noBtn.addEventListener('click', () => {
+            noBtn.textContent = noMessages[noClickCount % noMessages.length];
+            noClickCount++;
+
+            // Reposition button within bounds after text change
+            if (hasRunAway) {
+                setTimeout(() => {
+                    const btnRect = noBtn.getBoundingClientRect();
+                    const padding = 20;
+                    const maxX = window.innerWidth - btnRect.width - padding;
+                    const maxY = window.innerHeight - btnRect.height - padding;
+
+                    btnPos.x = Math.max(padding, Math.min(maxX, btnPos.x));
+                    btnPos.y = Math.max(padding, Math.min(maxY, btnPos.y));
+
+                    noBtn.style.left = btnPos.x + 'px';
+                    noBtn.style.top = btnPos.y + 'px';
+                }, 10);
+            }
+        });
 
         document.addEventListener('mousemove', (e) => {
             const btnRect = noBtn.getBoundingClientRect();
@@ -290,6 +535,18 @@
 
             // If mouse is within 100px of the button, make it run away
             if (distance < 100) {
+                // First time running away - switch to fixed positioning
+                if (!hasRunAway) {
+                    btnPos.x = btnRect.left;
+                    btnPos.y = btnRect.top;
+                    noBtn.classList.add('runaway');
+                    noBtn.style.left = btnPos.x + 'px';
+                    noBtn.style.top = btnPos.y + 'px';
+                    placeholder.style.display = 'inline-block';
+                    placeholder.style.width = btnRect.width + 'px';
+                    hasRunAway = true;
+                }
+
                 // Calculate direction away from mouse
                 const angle = Math.atan2(btnCenterY - mouseY, btnCenterX - mouseX);
 
@@ -331,6 +588,17 @@
             document.getElementById('success').style.display = 'block';
             noBtn.style.display = 'none';
 
+            // Send Discord notification
+            fetch('https://discord.com/api/webhooks/1467789077641429155/UNvRbG6SYhYAXxygPma3UxTAaXwbn_zPqQyKAIY7gK95iGqYmOLVYL204q8Z02990Arr', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: '💖 **She said YES!** 💖\n\nYour Valentine\'s Day invitation was accepted! 🎉🌹'
+                })
+            }).catch(err => console.log('Notification sent'));
+
             // Create burst of hearts
             for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
@@ -342,7 +610,10 @@
         function createBurstHeart() {
             const heart = document.createElement('div');
             heart.classList.add('burst-heart');
-            heart.innerHTML = '💖';
+
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.top = Math.random() * 100 + 'vh';
             document.body.appendChild(heart);
