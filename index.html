@@ -153,9 +153,10 @@
         .no-btn {
             background-color: #dda0dd;
             color: #333;
-            position: absolute;
+            position: fixed;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: none;
+            z-index: 20;
         }
 
         /* Success Message */
@@ -256,12 +257,22 @@
 
         // No button run away logic
         const noBtn = document.getElementById('no-btn');
-        const card = document.querySelector('.card');
 
-        // Initialize no button position
-        let noBtnRect = noBtn.getBoundingClientRect();
-        let initialPos = { x: 0, y: 0 };
-        let currentPos = { x: 0, y: 0 };
+        // Initialize no button position after page loads
+        let btnPos = { x: 0, y: 0 };
+
+        function initNoButton() {
+            const btnRect = noBtn.getBoundingClientRect();
+            btnPos.x = btnRect.left;
+            btnPos.y = btnRect.top;
+            noBtn.style.left = btnPos.x + 'px';
+            noBtn.style.top = btnPos.y + 'px';
+        }
+
+        // Initialize on load
+        window.addEventListener('load', initNoButton);
+        // Also try immediately in case load already fired
+        setTimeout(initNoButton, 100);
 
         document.addEventListener('mousemove', (e) => {
             const btnRect = noBtn.getBoundingClientRect();
@@ -284,22 +295,22 @@
 
                 // Move button away
                 const moveDistance = 150;
-                let newX = currentPos.x + Math.cos(angle) * moveDistance;
-                let newY = currentPos.y + Math.sin(angle) * moveDistance;
+                let newX = btnPos.x + Math.cos(angle) * moveDistance;
+                let newY = btnPos.y + Math.sin(angle) * moveDistance;
 
                 // Keep button within viewport bounds
-                const maxX = window.innerWidth - btnRect.width - 20;
-                const maxY = window.innerHeight - btnRect.height - 20;
-                const minX = -(btnRect.left - 20);
-                const minY = -(btnRect.top - 20);
+                const padding = 20;
+                const maxX = window.innerWidth - btnRect.width - padding;
+                const maxY = window.innerHeight - btnRect.height - padding;
 
-                newX = Math.max(minX, Math.min(maxX - btnRect.left + currentPos.x, newX));
-                newY = Math.max(minY, Math.min(maxY - btnRect.top + currentPos.y, newY));
+                newX = Math.max(padding, Math.min(maxX, newX));
+                newY = Math.max(padding, Math.min(maxY, newY));
 
-                currentPos.x = newX;
-                currentPos.y = newY;
+                btnPos.x = newX;
+                btnPos.y = newY;
 
-                noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+                noBtn.style.left = newX + 'px';
+                noBtn.style.top = newY + 'px';
             }
         });
 
@@ -318,6 +329,7 @@
             document.getElementById('buttons').classList.add('hidden');
             document.getElementById('question').classList.add('hidden');
             document.getElementById('success').style.display = 'block';
+            noBtn.style.display = 'none';
 
             // Create burst of hearts
             for (let i = 0; i < 20; i++) {
